@@ -32,16 +32,20 @@ getgenv().gethui = function()
   return game.CoreGui
 end
 
-getgenv().require = function(ms)
-   local old = syn.get_thread_identity()
-   
-   syn.set_thread_identity(2)
-   local g, res = pcall(req, ms)
-   syn.set_thread_identity(old)
-   if not g then
-       error (res)
-   end
-   return res    
+getgenv().require = function(scr)
+	if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
+	if CheckRL(scr) then error'attempt to require a core ModuleScript' end
+    local oIdentity = syn.get_thread_identity()
+
+    syn.set_thread_identity(2)
+    local g, res = pcall(Req, scr)
+    syn.set_thread_identity(oIdentity)
+
+    if not g then 
+        error(res) 
+    end
+
+    return res
 end
 
 getgenv().get_hidden_gui = gethui
