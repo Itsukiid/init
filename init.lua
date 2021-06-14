@@ -100,8 +100,6 @@ getgenv().require = function(scr)
 end
 
 getgenv().get_hidden_gui = gethui
-getgenv().getloadedmodules = getmodules
-
 getgenv().getmodules = function()
 local tabl = {}
 for i,v in next,getreg() do
@@ -115,6 +113,7 @@ end
 end
 return tabl --returns the stuff in the tabl table
 end
+getgenv().getloadedmodules = getmodules
 
 getgenv().getscripts = function()
 local tabl = {}
