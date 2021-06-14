@@ -46,9 +46,6 @@ end)
 
 setreadonly(mta, true)
 
---------------------------------------------------------------------
-
-
 local MT = {
   __index = function(a, b)
 	if b == "Fire" then
@@ -113,7 +110,6 @@ end
 end
 return tabl --returns the stuff in the tabl table
 end
-getgenv().getloadedmodules = getmodules
 
 getgenv().getscripts = function()
 local tabl = {}
@@ -788,3 +784,6 @@ getgenv().saveinstance = function()
     return stlgui:Destroy()
     end
 end
+
+getgenv().getloadedmodules = getmodules
+getgenv().replaceclosure = hookfunction
