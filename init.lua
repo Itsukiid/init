@@ -2,7 +2,6 @@ getgenv().newcclosure = function(f)
     return f
 end
 
-
 local mta = getrawmetatable(game)
 local back = mta.__namecall
 setreadonly(mta, false)
@@ -185,6 +184,38 @@ getgenv().getallthreads = function()
 	end
 	return threads
 end
+
+getgenv().getscriptclosure = newcclosure(function(Script)
+    assert(typeof(Script) == "Instance", "invalid argument #1 to 'getscriptclosure' (expected an Instance)")
+    assert(Script.ClassName == "LocalScript", "invalid argument #1 to 'getscriptclosure' (expected a LocalScript)")
+    for _, Closure in pairs(debug.getregistry()) do
+        if type(Closure) == "function" then
+            if getfenv(Closure).script == Script then
+                return Closure
+            end
+        end
+    end
+    error("script is not running")
+end)
+
+getgenv().clonefunction = newcclosure(function(p1)
+        assert(type(p1) == "function", "invalid argument #1 to '?' (function expected)", 2)
+        local A = p1
+        local B = xpcall(setfenv, function(p2, p3)
+                return p2, p3
+            end, p1, getfenv(p1))
+        if B then
+            return function(...)
+                return A(...)
+            end
+        end
+        return coroutine_wrap(function(...)
+            while true do
+        A = coroutine_yield(A(...))
+        end
+    end)
+end)
+
 
 getgenv().dumpstring = function(gaysex) 
 assert(type(gaysex) == "string", "fam wheres the string?", 2)  --check if its a string if its not it would error "fam wheres the string?"
