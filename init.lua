@@ -1,3 +1,49 @@
+local mta = getrawmetatable(game)
+local back = mta.__namecall
+setreadonly(mta, false)
+
+local MarketService = game:GetService("MarketplaceService")
+local BrowserService = game:GetService("BrowserService")
+local GuiService = game:GetService("GuiService")
+
+mta.__namecall = function(self, ...)
+    if checkcaller() and self == game then
+	    local method = getnamecallmethod()
+		if method == "HttpGet" or method == "HttpGetAsync" then
+			return HttpGet(self, ...)
+		elseif method == "GetObjects" then 
+			return GetObjects(self, ...)
+		elseif method == "OpenVideosFolder" or method == "OpenScreenshotsFolder" then 
+            return 0
+        end
+    end
+	if checkcaller() and self == MarketService then
+	    local method = getnamecallmethod()
+		if method == "PerformPurchase" or method == "PromptBundlePurchase" or method == "PromptGamePassPurchase" or method == "PromptNativePurchase" or method == "PromptProductPurchase" or method == "PromptPurchase" or method == "PromptThirdPartyPurchase" then
+			return 0
+        end
+    end
+	if checkcaller() and self == BrowserService then
+	    local method = getnamecallmethod()
+		if method == "OpenBrowserWindow" or method == "CopyAuthCookieFromBrowserToEngine" or method == "OpenNativeOverlay" or method == "OpenWeChatAuthWindow"  then
+			return 0
+        end
+    end
+	if checkcaller() and self == GuiService then
+	    local method = getnamecallmethod()
+		if method == "OpenBrowserWindow" then
+			return 0
+        end
+    end
+    return back(self, ...)
+end
+
+setreadonly(mta, true)
+
+
+--------------------------------------------------------------------
+
+
 local MT = {
   __index = function(a, b)
 	if b == "Fire" then
