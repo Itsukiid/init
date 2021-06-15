@@ -98,60 +98,61 @@ end
 
 getgenv().get_hidden_gui = gethui
 getgenv().getmodules = function()
-local tabl = {}
-for i,v in next,getreg() do
-if type(v)=="table" then
-for n,c in next,v do
-if typeof(c) == "Instance" and (c:IsA("ModuleScript")) then --checks if its an instance and if its a modulescript
-table.insert(tabl, c) --inserts modules in the tabl table
-end
-end
-end
-end
-return tabl --returns the stuff in the tabl table
+    local tabl = {}
+    for i, v in next, getreg() do
+        if type(v) == "table" then
+            for n, c in next, v do
+                if typeof(c) == "Instance" and (c:IsA("ModuleScript")) then --checks if its an instance and if its a modulescript
+                    table.insert(tabl, c) --inserts modules in the tabl table
+                end
+            end
+        end
+    end
+    return tabl --returns the stuff in the tabl table
 end
 
 getgenv().getscripts = function()
-local tabl = {}
-for i,v in next,getreg() do
-if type(v)=="table" then
-for n,c in next,v do
-if typeof(c) == "Instance" and (c:IsA("LocalScript") or c:IsA("ModuleScript")) then --checks if its an instance and if its a localscript or a modulescript
-table.insert(tabl, c) --inserts scripts in the tabl table
-end
-end
-end
-end
-return tabl --returns the stuff in the tabl table
+    local tabl = {}
+    for i, v in next, getreg() do
+        if type(v) == "table" then
+            for n, c in next, v do
+                if typeof(c) == "Instance" and (c:IsA("LocalScript") or c:IsA("ModuleScript")) then --checks if its an instance and if its a localscript or a modulescript
+                    table.insert(tabl, c) --inserts scripts in the tabl table
+                end
+            end
+        end
+    end
+    return tabl --returns the stuff in the tabl table
 end
 
 getgenv().getinstances = function()
-local tabl = {}
-for i,v in next,getreg() do
-if type(v)=="table" then
-for n,c in next,v do
-if typeof(c) == "Instance" then --checks if its an instance
-table.insert(tabl, c) --inserts instances in the tabl table
-end
-end
-end
-end
-return tabl --returns the stuff in the tabl table
+    local tabl = {}
+    for i, v in next, getreg() do
+        if type(v) == "table" then
+            for n, c in next, v do
+                if typeof(c) == "Instance" then --checks if its an instance
+                    table.insert(tabl, c) --inserts instances in the tabl table
+                end
+            end
+        end
+    end
+    return tabl --returns the stuff in the tabl table
 end
 
 getgenv().getnilinstances = function()
-local tabl = {}
-for i,v in next,getreg() do
-if type(v)=="table" then
-for n,c in next,v do
-if typeof(c) == "Instance" and c.Parent==nil then --checks if its an instance and if the parent is nil
-table.insert(tabl, c) --inserts nilinstances in the tabl table
+    local tabl = {}
+    for i, v in next, getreg() do
+        if type(v) == "table" then
+            for n, c in next, v do
+                if typeof(c) == "Instance" and c.Parent == nil then --checks if its an instance and if the parent is nil
+                    table.insert(tabl, c) --inserts nilinstances in the tabl table
+                end
+            end
+        end
+    end
+    return tabl --returns the stuff in the tabl table
 end
-end
-end
-end
-return tabl --returns the stuff in the tabl table
-end
+
 
 getgenv().getscriptenvs = function()
 	local tabl = {}
@@ -183,7 +184,7 @@ end
 getgenv().getscriptclosure = newcclosure(function(Script)
     assert(typeof(Script) == "Instance", "invalid argument #1 to 'getscriptclosure' (expected an Instance)")
     assert(Script.ClassName == "LocalScript", "invalid argument #1 to 'getscriptclosure' (expected a LocalScript)")
-    for _, Closure in pairs(debug.getregistry()) do
+    for _, Closure in pairs(getreg()) do
         if type(Closure) == "function" then
             if getfenv(Closure).script == Script then
                 return Closure
@@ -211,19 +212,17 @@ getgenv().clonefunction = newcclosure(function(p1)
     end)
 end)
 
-
-getgenv().dumpstring = function(gaysex) 
-assert(type(gaysex) == "string", "fam wheres the string?", 2)  --check if its a string if its not it would error "fam wheres the string?"
-return tostring("\\" .. table.concat({string.byte(gaysex, 1, #gaysex)}, "\\"))
+getgenv().dumpstring = function(gaysex)
+    assert(type(gaysex) == "string", "fam wheres the string?", 2) --check if its a string if its not it would error "fam wheres the string?"
+    return tostring("\\" .. table.concat({string.byte(gaysex, 1, #gaysex)}, "\\"))
 end
-
 
 --bit lib
 
 getgenv().bit = {}
 
 for i, v in next, bit32 do
-	bit[i] = v
+    bit[i] = v
 end
 
 bit.badd = function(a, b)
@@ -243,65 +242,76 @@ bit.bmul = function(a, b)
 end
 
 bit.bswap = function(x)
-  local a = bit.band(x, 0xff); x = bit.rshift(x, 8)
-  local b = bit.band(x, 0xff); x = bit.rshift(x, 8)
-  local c = bit.band(x, 0xff); x = bit.rshift(x, 8)
-  local d = bit.band(x, 0xff)
-  return bit.lshift(bit.lshift(bit.lshift(a, 8) + b, 8) + c, 8) + d
+    local a = bit.band(x, 0xff)
+    x = bit.rshift(x, 8)
+    local b = bit.band(x, 0xff)
+    x = bit.rshift(x, 8)
+    local c = bit.band(x, 0xff)
+    x = bit.rshift(x, 8)
+    local d = bit.band(x, 0xff)
+    return bit.lshift(bit.lshift(bit.lshift(a, 8) + b, 8) + c, 8) + d
 end
 
 function rrotate(x, disp)
-  disp = disp % 32
-  local low = bit.band(x, 2^disp-1)
-  return bit.rshift(x, disp) + bit.lshift(low, 32-disp)
+    disp = disp % 32
+    local low = bit.band(x, 2 ^ disp - 1)
+    return bit.rshift(x, disp) + bit.lshift(low, 32 - disp)
 end
-
 
 bit.rol = function(x, disp)
     return rrotate(x, -disp)
 end
 
-bit.ror = function(x, disp) --this is wrong fix this lol idk 
+bit.ror = function(x, disp) --this is wrong fix this lol idk
     return rrotate(x, disp)
 end
 
 bit.tohex = function(x, n)
-  n = n or 8
-  local up
-  if n <= 0 then
-    if n == 0 then return '' end
-    up = true
-    n = - n
-  end
-  x = bit.band(x, 16^n-1)
-  return ('%0'..n..(up and 'X' or 'x')):format(x)
+    n = n or 8
+    local up
+    if n <= 0 then
+        if n == 0 then
+            return ""
+        end
+        up = true
+        n = -n
+    end
+    x = bit.band(x, 16 ^ n - 1)
+    return ("%0" .. n .. (up and "X" or "x")):format(x)
 end
 
 bit.tobit = function(x)
-  return x % 2^32
+    return x % 2 ^ 32
 end
 
 --syn lib in lua
 syn.protect_gui = function(a)
-if type(a) == "userdata" and a:IsA("ScreenGui") then
-pcall(function() a.Parent = gethui() end)
-end
+    if type(a) == "userdata" and a:IsA("ScreenGui") then
+        pcall(
+            function()
+                a.Parent = gethui()
+            end
+        )
+    end
 end
 
 syn.secure_call = function(Closure, Spoof, ...)
-    assert(typeof(Spoof) == "Instance", "invalid argument #1 to '?' (LocalScript or ModuleScript expected, got "..type(Spoof)..")")
-    assert(Spoof.ClassName == "LocalScript" or Spoof.ClassName == "ModuleScript", "invalid argument #1 to '?' (LocalScript or ModuleScript expected, got "..type(Spoof)..")")
+    assert(typeof(Spoof) == "Instance", "invalid argument #1 to '?' (LocalScript or ModuleScript expected, got " .. type(Spoof) .. ")")
+    assert(Spoof.ClassName == "LocalScript" or Spoof.ClassName == "ModuleScript", "invalid argument #1 to '?' (LocalScript or ModuleScript expected, got " .. type(Spoof) .. ")")
 
     local OldScript = getfenv().script
     local OldThreadID = syn.get_thread_identity()
 
     getfenv().script = Spoof
-	syn.set_thread_identity(2)
+    syn.set_thread_identity(2)
     local Success, Err = pcall(Closure, ...)
-	syn.set_thread_identity(OldThreadID)
+    syn.set_thread_identity(OldThreadID)
     getfenv().script = OldScript
-    if not Success and Err then error(Err) end
+    if not Success and Err then
+        error(Err)
+    end
 end
+
 
 getgenv().saveinstance = function()
     local buffersize
