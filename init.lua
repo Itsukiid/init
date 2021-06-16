@@ -1,7 +1,6 @@
 getgenv().newcclosure = function(f)
     return f
 end
-local req = getrenv().require
 
 local mta = getrawmetatable(game)
 local back = mta.__namecall
@@ -63,7 +62,7 @@ end
 
 getgenv().require = function(ms)
    require1()
-   local g, res = pcall(req, ms)
+   local g, res = pcall(getrenv().require, ms)
    require2()
    if not g then
        error (res)
@@ -89,7 +88,7 @@ getgenv().getconnections = function(a)
 end
 
 getgenv().gethui = function() 
-  return game.CoreGui
+  return game:GetService'CoreGui'
 end
 
 getgenv().get_hidden_gui = gethui
