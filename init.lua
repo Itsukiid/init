@@ -19,8 +19,6 @@ mta.__namecall = newcclosure(function(self, ...)
                 return HttpGet(self, ...)
             elseif method == "GetObjects" then 
                 return GetObjects(self, ...)
-            elseif method == "service" then 
-                return game:GetService(self, ...)			
             elseif method == "OpenVideosFolder" or method == "OpenScreenshotsFolder" then 
                 return 0
             end
