@@ -283,6 +283,7 @@ end
 syn.protect_gui = function(a)
 	if type(a) == "userdata" and a:IsA("ScreenGui") then
 	a.Parent = game:GetService'CoreGui'
+   end
 end
 
 syn.secure_call = function(Closure, Spoof, ...)
