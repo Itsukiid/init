@@ -82,20 +82,6 @@ getgenv().gethui = function()
   return game.CoreGui
 end
 
-getgenv().require = function(scr)
-    if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
-
-    require1()
-    local g, res = pcall(getrenv().require, scr)
-    require2()
-
-    if not g then 
-        error(res) 
-    end
-
-    return res
-end
-
 getgenv().get_hidden_gui = gethui
 getgenv().getmodules = function()
     local tabl = {}
