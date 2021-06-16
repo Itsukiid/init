@@ -83,8 +83,7 @@ getgenv().gethui = function()
 end
 
 getgenv().require = function(scr)
-	if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
-	if CheckRL(scr) then error'attempt to require a core ModuleScript' end
+    if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
     local oIdentity = syn.get_thread_identity()
 
     syn.set_thread_identity(2)
