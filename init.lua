@@ -83,12 +83,11 @@ getgenv().gethui = function()
 end
 
 getgenv().require = function(scr)
-	if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
-    local oIdentity = syn.get_thread_identity()
+    if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
 
-    syn.set_thread_identity(2)
+    require1()
     local g, res = pcall(getrenv().require, scr)
-    syn.set_thread_identity(oIdentity)
+    require2()
 
     if not g then 
         error(res) 
