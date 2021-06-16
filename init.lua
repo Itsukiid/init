@@ -87,7 +87,7 @@ getgenv().require = function(scr)
     local oIdentity = syn.get_thread_identity()
 
     syn.set_thread_identity(2)
-    local g, res = pcall(Req, scr)
+    local g, res = pcall(getrenv().require, scr)
     syn.set_thread_identity(oIdentity)
 
     if not g then 
