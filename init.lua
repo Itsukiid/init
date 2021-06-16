@@ -281,13 +281,7 @@ end
 
 --syn lib in lua
 syn.protect_gui = function(a)
-    if type(a) == "userdata" and a:IsA("ScreenGui") then
-        pcall(
-            function()
-                a.Parent = gethui()
-            end
-        )
-    end
+    a.Parent = game:GetService'CoreGui'
 end
 
 syn.secure_call = function(Closure, Spoof, ...)
