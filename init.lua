@@ -1,6 +1,7 @@
 getgenv().newcclosure = function(f)
     return f
 end
+local req = getrenv().require
 
 local mta = getrawmetatable(game)
 local back = mta.__namecall
@@ -62,19 +63,16 @@ function attachMT(tbl)
   return tbl
 end
 
-getgenv().require = function(scr)
-	if typeof(scr) ~= 'Instance' or scr.ClassName ~= 'ModuleScript' then error'attempt to require a non-ModuleScript' end
-
-    require1()
-    local g, res = pcall(getrenv().require, scr)
-    require2()
-
-    if not g then 
-        error(res) 
-    end
-
-    return res
+getgenv().require = function(ms)
+   require1()
+   local g, res = pcall(req, ms)
+   require2()
+   if not g then
+       error (res)
+   end
+   return res    
 end
+
 
 getgenv().firesignal = function(a, ...)
   temp=a:Connect(function()end)
