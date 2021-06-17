@@ -1,7 +1,3 @@
-getgenv().newcclosure = function(f)
-    return f
-end
-
 local mta = getrawmetatable(game)
 local back = mta.__namecall
 setreadonly(mta, false)
