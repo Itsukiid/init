@@ -42,31 +42,6 @@ end)
 
 setreadonly(mta, true)
 
-local MT = {
-	__index = function(a, b)
-		if b == "Fire" then
-			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
-		elseif b == "Enable" then
-			return function(self) enableconnection(self.__OBJECT) end 
-		elseif b == "Disable" then
-			return function(self) disableconnection(self.__OBJECT) end 
-		end
-		return nil
-	end,
-	__newindex = function(a, b, c)
-		if b == "Enabled" then
-			if c and not rawget(a, "_ENABLED") then
-				enableconnection(self.__OBJECT) 
-				rawset(T, "_ENABLED", true)
-			elseif rawget(a, "_ENABLED") then
-				disableconnection(self.__OBJECT) 
-				rawset(T, "_ENABLED", false)
-			end
-		end
-	end,
-	__type = "Event"
-}
-
 getgenv().require = function(ms)
    require1()
    local g, res = pcall(getrenv().require, ms)
@@ -82,18 +57,6 @@ getgenv().firesignal = newcclosure(function(a, ...)
     temp:Disconnect()
     return firesignalhelper(temp, ...)
 end)
-
-
-getgenv().getconnections = newcclosure(function(a)
-	local temp = a:Connect(function() end)
-	local signals = getothersignals(temp)
-	for i,v in pairs(signals) do
-		signals[i] = setmetatable(v, MT)
-	end
-	temp:Disconnect()
-	return signals
-end)
-
 
 getgenv().gethui = function() 
   return game:GetService'CoreGui'
