@@ -1,20 +1,10 @@
 local mta = getrawmetatable(game)
 local back = mta.__namecall
-local backupidx = mta.__index
 setreadonly(mta, false)
 
 local MarketService = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
-
-mta.__index = newcclosure(function(a, b)
-	if a == game and checkcaller() then
-		if b == "HttpGet" then return HttpGet end
-		if b == "HttpGetAsync" then return HttpGet end
-		if b == "GetObjects" then return GetObjects end
-	end		
-	return backupidx(a, b)			
-end)
 
 mta.__namecall = newcclosure(function(self, ...)
     if checkcaller() then
