@@ -42,6 +42,47 @@ end)
 
 setreadonly(mta, true)
 
+local MT = {
+	__index = function(a, b)
+		if b == "Fire" then
+			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
+		elseif b == "Enable" then
+			return function(self) enableconnection(self.__OBJECT) end 
+		elseif b == "Disable" then
+			return function(self) disableconnection(self.__OBJECT) end 
+		end
+		return nil
+	end,
+	__newindex = function(a, b, c)
+		if b == "Enabled" then
+			if c and not rawget(a, "_ENABLED") then
+				enableconnection(self.__OBJECT) 
+				rawset(T, "_ENABLED", true)
+			elseif rawget(a, "_ENABLED") then
+				disableconnection(self.__OBJECT) 
+				rawset(T, "_ENABLED", false)
+			end
+		end
+	end,
+	__type = "Event"
+}
+
+getgenv().getconnections = newcclosure(function(a)
+	local temp = a:Connect(function() end)
+	local signals = getothersignals(temp)
+	for i,v in pairs(signals) do
+		signals[i] = setmetatable(v, MT)
+	end
+	temp:Disconnect()
+	return signals
+end)
+
+getgenv().firesignal = newcclosure(function(a, ...)
+    local temp = a:Connect(function() end)
+    temp:Disconnect()
+    return firesignalhelper(temp, ...)
+end)
+
 getgenv().require = function(ms)
    require1()
    local g, res = pcall(getrenv().require, ms)
@@ -52,18 +93,12 @@ getgenv().require = function(ms)
    return res    
 end
 
-getgenv().firesignal = newcclosure(function(a, ...)
-    local temp = a:Connect(function() end)
-    temp:Disconnect()
-    return firesignalhelper(temp, ...)
-end)
-
 getgenv().gethui = function() 
   return game:GetService'CoreGui'
 end
 
 getgenv().get_hidden_gui = gethui
-getgenv().getmodules = function()
+getgenv().getmodules = newcclosure(function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -75,9 +110,9 @@ getgenv().getmodules = function()
         end
     end
     return tabl --returns the stuff in the tabl table
-end
+end)
 
-getgenv().getscripts = function()
+getgenv().getscripts = newcclosure(function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -89,9 +124,9 @@ getgenv().getscripts = function()
         end
     end
     return tabl --returns the stuff in the tabl table
-end
+end)
 
-getgenv().getinstances = function()
+getgenv().getinstances = newcclosure(function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -103,9 +138,9 @@ getgenv().getinstances = function()
         end
     end
     return tabl --returns the stuff in the tabl table
-end
+end)
 
-getgenv().getnilinstances = function()
+getgenv().getnilinstances = newcclosure(function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -117,10 +152,10 @@ getgenv().getnilinstances = function()
         end
     end
     return tabl --returns the stuff in the tabl table
-end
+end)
 
 
-getgenv().getscriptenvs = function()
+getgenv().getscriptenvs = newcclosure(function()
 	local tabl = {}
 	for i, v in next, getscripts() do
 		local succ, res = pcall(getsenv, v)
@@ -129,15 +164,15 @@ getgenv().getscriptenvs = function()
 		end
 	end
 	return tabl
-end
+end)
 
-getgenv().getcallingscript = function(lvl)
+getgenv().getcallingscript = newcclosure(function(lvl)
     lvl = lvl and lvl + 1 or 1
     local func = setfenv(lvl, getfenv(lvl))
     return getfenv(func).script
-end
+end)
 
-getgenv().getallthreads = function()
+getgenv().getallthreads = newcclosure(function()
 	local threads = {}
 	for i, v in next, getreg() do
 		if type(v) == "thread" then
@@ -145,7 +180,7 @@ getgenv().getallthreads = function()
 		end
 	end
 	return threads
-end
+end)
 
 getgenv().getscriptclosure = newcclosure(function(Script)
     assert(typeof(Script) == "Instance", "invalid argument #1 to 'getscriptclosure' (expected an Instance)")
@@ -179,7 +214,7 @@ getgenv().clonefunction = newcclosure(function(p1)
 end)
 
 getgenv().dumpstring = function(gaysex)
-    assert(type(gaysex) == "string", "fam wheres the string?", 2) --check if its a string if its not it would error "fam wheres the string?"
+    assert(type(gaysex) == "string", "String expected", 2)
     return tostring("\\" .. table.concat({string.byte(gaysex, 1, #gaysex)}, "\\"))
 end
 
