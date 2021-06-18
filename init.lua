@@ -359,22 +359,6 @@ getgenv().saveinstance = function()
         return rswait:wait()
     end
     end
-    local pnolist = {
-        Instance = {
-            Archivable = true,
-            ClassName = true,
-            DataCost = true,
-            Parent = true,
-            RobloxLocked = true
-        },
-        BasePart = {
-            Position = true,
-            Rotation = true
-        },
-        BaseScript = {
-            LinkedSource = true
-        }
-    }
     local pesplist = {
         UnionOperation = {
             AssetId = 'Content',
