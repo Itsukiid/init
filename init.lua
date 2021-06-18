@@ -405,9 +405,9 @@ getgenv().saveinstance = function()
     }
     local quantum_hackerman_pcomp_lget_wfetch_query_getsz_base64_decode
     quantum_hackerman_pcomp_lget_wfetch_query_getsz_base64_decode = function()
-    local version_query_async_kernelmode_base = game:HttpGet('http://setup.roblox.com/versionQTStudio', true)
+    local version_query_async_kernelmode_base = HttpGet('http://setup.roblox.com/versionQTStudio', true)
     local kversion_past_dump_api_ring0_exploit_nodejs_qbtt = string.format('http://setup.roblox.com/%s-API-Dump.json', version_query_async_kernelmode_base)
-    local l_unquery_lua_top_stack_lpsz_tvalue_str_const_ptr = game:HttpGet(kversion_past_dump_api_ring0_exploit_nodejs_qbtt, true)
+    local l_unquery_lua_top_stack_lpsz_tvalue_str_const_ptr = HttpGet(kversion_past_dump_api_ring0_exploit_nodejs_qbtt, true)
     local ignore_base_api_wget_linux_git_push_unicode = game:GetService('HttpService'):JSONDecode(l_unquery_lua_top_stack_lpsz_tvalue_str_const_ptr).Classes
     local kernel_base_addresses_to_system_modules = { }
     for _index_0 = 1, #ignore_base_api_wget_linux_git_push_unicode do
