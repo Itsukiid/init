@@ -183,6 +183,19 @@ getgenv().dumpstring = function(gaysex)
     return tostring("\\" .. table.concat({string.byte(gaysex, 1, #gaysex)}, "\\"))
 end
 
+getgenv().makewriteable = newcclosure(function(tab)
+	setreadonly(tab, false)
+end)
+
+getgenv().makereadonly = newcclosure(function(tab)
+	setreadonly(tab, true)
+end)
+
+getgenv().iswriteable = newcclosure(function(tab)
+	return not isreadonly(tab)
+end)
+
+
 --bit lib
 
 getgenv().bit = {}
