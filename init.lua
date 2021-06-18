@@ -7,9 +7,6 @@ local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
 
 mta.__namecall = newcclosure(function(self, ...)
-        if self == game then
-            local method = getnamecallmethod()
-        end
     return back(self, ...)
 end)
 
