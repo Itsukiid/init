@@ -6,7 +6,7 @@ local MarketService = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
 
-mta.__namecall = function(self, ...)
+mta.__namecall = newcclosure(function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
@@ -18,27 +18,10 @@ mta.__namecall = function(self, ...)
                 return 0
             end
         end
-        if self == MarketService then
-            local method = getnamecallmethod()
-            if method == "PerformPurchase" or method == "PromptBundlePurchase" or method == "PromptGamePassPurchase" or method == "PromptNativePurchase" or method == "PromptProductPurchase" or method == "PromptPurchase" or method == "PromptThirdPartyPurchase" then
-                return 0
-            end
-        end
-        if self == BrowserService then
-            local method = getnamecallmethod()
-            if method == "OpenBrowserWindow" or method == "CopyAuthCookieFromBrowserToEngine" or method == "OpenNativeOverlay" or method == "OpenWeChatAuthWindow"  then
-                return 0
-            end
-        end
-        if self == GuiService then
-            local method = getnamecallmethod()
-            if method == "OpenBrowserWindow" then
-                return 0
-            end
-        end
+        
     end
     return back(self, ...)
-end
+end)
 
 setreadonly(mta, true)
 
