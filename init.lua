@@ -10,9 +10,6 @@ mta.__namecall = newcclosure(function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
-            if method == "GetObjects" then 
-                return GetObjects(self, ...)
-            end
         end
     end
     return back(self, ...)
