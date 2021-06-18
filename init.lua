@@ -1,9 +1,5 @@
 local mta = getrawmetatable(game)
 local back = mta.__namecall
-setreadonly(mta, false)
-
-setreadonly(mta, true)
-
 local MT = {
 	__index = function(a, b)
 		if b == "Fire" then
