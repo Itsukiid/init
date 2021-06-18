@@ -10,15 +10,10 @@ mta.__namecall = newcclosure(function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
-            if method == "HttpGet" or method == "HttpGetAsync" then
-                return HttpGet(self, ...)
-            elseif method == "GetObjects" then 
+            if method == "GetObjects" then 
                 return GetObjects(self, ...)
-            elseif method == "OpenVideosFolder" or method == "OpenScreenshotsFolder" then 
-                return 0
             end
         end
-        
     end
     return back(self, ...)
 end)
