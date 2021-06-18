@@ -2,14 +2,6 @@ local mta = getrawmetatable(game)
 local back = mta.__namecall
 setreadonly(mta, false)
 
-local MarketService = game:GetService("MarketplaceService")
-local BrowserService = game:GetService("BrowserService")
-local GuiService = game:GetService("GuiService")
-
-mta.__namecall = newcclosure(function(self, ...)
-    return back(self, ...)
-end)
-
 setreadonly(mta, true)
 
 local MT = {
