@@ -6,7 +6,7 @@ local MarketService = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
 
-mta.__namecall = newcclosure(function(self, ...)
+mta.__namecall = function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
@@ -38,7 +38,7 @@ mta.__namecall = newcclosure(function(self, ...)
         end
     end
     return back(self, ...)
-end)
+end
 
 setreadonly(mta, true)
 
