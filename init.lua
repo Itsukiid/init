@@ -67,7 +67,7 @@ local MT = {
 	__type = "Event"
 }
 
-getgenv().getconnections = newcclosure(function(a)
+getgenv().getconnections = function(a)
 	local temp = a:Connect(function() end)
 	local signals = getothersignals(temp)
 	for i,v in pairs(signals) do
@@ -75,13 +75,13 @@ getgenv().getconnections = newcclosure(function(a)
 	end
 	temp:Disconnect()
 	return signals
-end)
+end
 
-getgenv().firesignal = newcclosure(function(a, ...)
+getgenv().firesignal = function(a, ...)
     local temp = a:Connect(function() end)
     temp:Disconnect()
     return firesignalhelper(temp, ...)
-end)
+end
 
 getgenv().require = function(ms)
    local old = syn.get_thread_identity()
@@ -120,7 +120,7 @@ getgenv().fireproximityprompt = function(Obj, Amount, Skip)
 end
 
 getgenv().get_hidden_gui = gethui
-getgenv().getmodules = newcclosure(function()
+getgenv().getmodules = function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -132,9 +132,9 @@ getgenv().getmodules = newcclosure(function()
         end
     end
     return tabl
-end)
+end
 
-getgenv().getscripts = newcclosure(function()
+getgenv().getscripts = function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -146,9 +146,9 @@ getgenv().getscripts = newcclosure(function()
         end
     end
     return tabl
-end)
+end
 
-getgenv().getinstances = newcclosure(function()
+getgenv().getinstances = function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -160,9 +160,9 @@ getgenv().getinstances = newcclosure(function()
         end
     end
     return tabl
-end)
+end
 
-getgenv().getnilinstances = newcclosure(function()
+getgenv().getnilinstances = function()
     local tabl = {}
     for i, v in next, getreg() do
         if type(v) == "table" then
@@ -174,10 +174,10 @@ getgenv().getnilinstances = newcclosure(function()
         end
     end
     return tabl
-end)
+end
 
 
-getgenv().getscriptenvs = newcclosure(function()
+getgenv().getscriptenvs = function()
 	local tabl = {}
 	for i, v in next, getscripts() do
 		local succ, res = pcall(getsenv, v)
@@ -186,15 +186,15 @@ getgenv().getscriptenvs = newcclosure(function()
 		end
 	end
 	return tabl
-end)
+end
 
-getgenv().getcallingscript = newcclosure(function(lvl)
+getgenv().getcallingscript = function(lvl)
     lvl = lvl and lvl + 1 or 1
     local func = setfenv(lvl, getfenv(lvl))
     return getfenv(func).script
-end)
+end
 
-getgenv().getallthreads = newcclosure(function()
+getgenv().getallthreads = function()
 	local threads = {}
 	for i, v in next, getreg() do
 		if type(v) == "thread" then
@@ -202,9 +202,9 @@ getgenv().getallthreads = newcclosure(function()
 		end
 	end
 	return threads
-end)
+end
 
-getgenv().getscriptclosure = newcclosure(function(Script)
+getgenv().getscriptclosure = function(Script)
     assert(typeof(Script) == "Instance", "invalid argument #1 to 'getscriptclosure' (expected an Instance)")
     assert(Script.ClassName == "LocalScript", "invalid argument #1 to 'getscriptclosure' (expected a LocalScript)")
     for _, Closure in pairs(getreg()) do
@@ -215,7 +215,7 @@ getgenv().getscriptclosure = newcclosure(function(Script)
         end
     end
     error("script is not running")
-end)
+end
 
 getgenv().clonefunction = newcclosure(function(p1)
         assert(type(p1) == "function", "invalid argument #1 to '?' (function expected)", 2)
