@@ -1,4 +1,3 @@
-local back = mta.__namecall
 local MT = {
 	__index = function(a, b)
 		if b == "Fire" then
