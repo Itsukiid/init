@@ -84,9 +84,11 @@ getgenv().firesignal = newcclosure(function(a, ...)
 end)
 
 getgenv().require = function(ms)
-   require1()
+   local old = syn.get_thread_identity()
+
+   syn.set_thread_identity(2)
    local g, res = pcall(getrenv().require, ms)
-   require2()
+   syn.set_thread_identity(old)
    if not g then
        error (res)
    end
@@ -123,13 +125,13 @@ getgenv().getmodules = newcclosure(function()
     for i, v in next, getreg() do
         if type(v) == "table" then
             for n, c in next, v do
-                if typeof(c) == "Instance" and (c:IsA("ModuleScript")) then --checks if its an instance and if its a modulescript
-                    table.insert(tabl, c) --inserts modules in the tabl table
+                if typeof(c) == "Instance" and (c:IsA("ModuleScript")) then
+                    table.insert(tabl, c)
                 end
             end
         end
     end
-    return tabl --returns the stuff in the tabl table
+    return tabl
 end)
 
 getgenv().getscripts = newcclosure(function()
@@ -137,13 +139,13 @@ getgenv().getscripts = newcclosure(function()
     for i, v in next, getreg() do
         if type(v) == "table" then
             for n, c in next, v do
-                if typeof(c) == "Instance" and (c:IsA("LocalScript") or c:IsA("ModuleScript")) then --checks if its an instance and if its a localscript or a modulescript
-                    table.insert(tabl, c) --inserts scripts in the tabl table
+                if typeof(c) == "Instance" and (c:IsA("LocalScript") or c:IsA("ModuleScript")) then
+                    table.insert(tabl, c)
                 end
             end
         end
     end
-    return tabl --returns the stuff in the tabl table
+    return tabl
 end)
 
 getgenv().getinstances = newcclosure(function()
@@ -151,13 +153,13 @@ getgenv().getinstances = newcclosure(function()
     for i, v in next, getreg() do
         if type(v) == "table" then
             for n, c in next, v do
-                if typeof(c) == "Instance" then --checks if its an instance
-                    table.insert(tabl, c) --inserts instances in the tabl table
+                if typeof(c) == "Instance" then
+                    table.insert(tabl, c)
                 end
             end
         end
     end
-    return tabl --returns the stuff in the tabl table
+    return tabl
 end)
 
 getgenv().getnilinstances = newcclosure(function()
@@ -165,13 +167,13 @@ getgenv().getnilinstances = newcclosure(function()
     for i, v in next, getreg() do
         if type(v) == "table" then
             for n, c in next, v do
-                if typeof(c) == "Instance" and c.Parent == nil then --checks if its an instance and if the parent is nil
-                    table.insert(tabl, c) --inserts nilinstances in the tabl table
+                if typeof(c) == "Instance" and c.Parent == nil then
+                    table.insert(tabl, c)
                 end
             end
         end
     end
-    return tabl --returns the stuff in the tabl table
+    return tabl
 end)
 
 
@@ -318,7 +320,6 @@ bit.tobit = function(x)
     return x % 2 ^ 32
 end
 
---syn lib in lua
 syn.protect_gui = function(a)
 	if type(a) == "userdata" and a:IsA("ScreenGui") then
 	a.Parent = game:GetService'CoreGui'
