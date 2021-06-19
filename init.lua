@@ -48,8 +48,6 @@ local MT = {
 			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
 		elseif b == "Enable" then
 			return function(self) enableconnection(self.__OBJECT) end 
-		elseif b == "Enabled" then
-			return rawget(a, "_ENABLED")
 		elseif b == "State" then
 			return getconnectionstate(rawget(a, "__OBJECT"))
 		elseif b == "Function" then
