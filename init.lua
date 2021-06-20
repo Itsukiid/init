@@ -83,18 +83,6 @@ getgenv().firesignal = function(a, ...)
     return firesignalhelper(temp, ...)
 end
 
-getgenv().require = function(ms)
-   local old = syn.get_thread_identity()
-
-   syn.set_thread_identity(2)
-   local g, res = pcall(getrenv().require, ms)
-   syn.set_thread_identity(old)
-   if not g then
-       error (res)
-   end
-   return res    
-end
-
 getgenv().gethui = function() 
   return game:GetService'CoreGui'
 end
