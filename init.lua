@@ -49,7 +49,9 @@ local MT = {
 		elseif b == "Enable" then
 			return function(self) enableconnection(self.__OBJECT) end 
 		elseif b == "Disable" then
-			return function(self) disableconnection(self.__OBJECT) end 
+			return function(self) disableconnection(self.__OBJECT) end
+		elseif b == "Fire" then
+			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
 		end
 		return nil
 	end,
