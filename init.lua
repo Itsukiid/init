@@ -1,3 +1,21 @@
+local getothersignals = getothersignals
+local firesignalhelper = firesignalhelper
+local fireonesignal = fireonesignal
+local enableconnection = enableconnection
+local disableconnection = disableconnection
+local getconnectionfunction = getconnectionfunction
+local getconnectionstate = getconnectionstate
+local sethiddenproperty_flag = sethiddenproperty_flag
+
+getgenv().getothersignals = nil
+getgenv().firesignalhelper = nil
+getgenv().fireonesignal = nil
+getgenv().enableconnection = nil
+getgenv().disableconnection = nil
+getgenv().getconnectionfunction = nil
+getgenv().getconnectionstate = nil
+getgenv().sethiddenproperty_flag = nil
+
 local mt = getrawmetatable(game)
 local back = mt.__namecall
 setreadonly(mt, false)
