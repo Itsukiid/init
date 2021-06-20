@@ -816,8 +816,81 @@ getgenv().saveinstance = function()
     end
 end
 
-getgenv().getloadedmodules = getmodules
+getgenv().syn_crypt_b64_encode = syn.crypt.base64.encode
+getgenv().syn_crypt_b64_decode = syn.crypt.base64.decode
+getgenv().syn_context_get = syn.get_thread_identity
+getgenv().syn_context_set = syn.set_thread_identity
+getgenv().syn_getcallingscript = getcallingscript
+getgenv().syn_getgc = getgc
+getgenv().syn_getgenv = getgenv
+getgenv().syn_getinstances = getinstances
+getgenv().syn_getloadedmodules = getmodules
+getgenv().syn_getmenv = getsenv
+getgenv().syn_getreg = getreg
+getgenv().syn_getrenv = getrenv
+getgenv().syn_getsenv = getsenv
+getgenv().syn_islclosure = islclosure
+getgenv().syn_mouse1click = mouse1click
+getgenv().syn_mouse1press = mouse1press
+getgenv().syn_mouse1release = mouse1release
+getgenv().syn_mouse2click = mouse2click
+getgenv().syn_mouse2press = mouse2press
+getgenv().syn_mouse2release = mouse2release
+getgenv().syn_mousemoverel = mousemoverel
+getgenv().syn_newcclosure = newcclosure
+getgenv().hookfunc = hookfunction
 getgenv().replaceclosure = hookfunction
+
+getgenv().make_readonly = makereadonly
+getgenv().makewritable = makewriteable
+getgenv().make_writable = makewriteable
+getgenv().make_writeable = makewriteable
+getgenv().is_readonly = isreadonly
+getgenv().iswritable = iswriteable
+getgenv().is_writable = iswriteable
+getgenv().is_writeable = iswriteable
+
+getgenv().get_instances = getinstances
+getgenv().get_scripts = getscripts
+getgenv().getloadedmodules = getmodules -- not strictly accurate
+getgenv().get_loaded_modules = getmodules -- not strictly accurate
+getgenv().get_nil_instances = getnilinstances
+getgenv().get_script_envs = getscriptenvs
+getgenv().get_calling_script = getcallingscript
+getgenv().getscriptcaller = getcallingscript
+getgenv().getcaller = getcallingscript
+getgenv().get_all_threads = getallthreads
+
+getgenv().debug = {}
+getgenv().debug.getregistry = getreg
+getgenv().debug.getfenv = getfenv
+getgenv().debug.setfenv = setfenv
+getgenv().debug.setmetatable = setmetatable
+
+getgenv().get_gc_objects = getgc
+getgenv().get_namecall_method = getnamecallmethod
+getgenv().set_namecall_method = setnamecallmethod
+
+getgenv().is_l_closure = islclosure
+getgenv().is_c_closure = iscclosure
+
+getgenv().httpget = HttpGet
+getgenv().getobjects = GetObjects
+
+getgenv().getcontext = syn.get_thread_identity
+getgenv().getidentity = syn.get_thread_identity
+getgenv().getthreadcontext = syn.get_thread_identity
+getgenv().get_thread_context = syn.get_thread_identity
+getgenv().get_thread_identity = syn.get_thread_identity
+getgenv().setcontext = syn.set_thread_identity
+getgenv().setidentity = syn.set_thread_identity
+getgenv().setthreadcontext = syn.set_thread_identity
+getgenv().set_thread_context = syn.set_thread_identity
+getgenv().set_thread_identity = syn.set_thread_identity
+getgenv().hookfunc = hookfunction
+getgenv().replaceclosure = hookfunction
+
+getgenv().securecall = secure_call
 
 local t = {}
  
