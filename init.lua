@@ -43,19 +43,17 @@ end
 setreadonly(mt, true)
 
 local MT = {
-	__index = function(a, b)
-		if b == "Fire" then
-			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
-		elseif b == "Enable" then
-			return function(self) enableconnection(self.__OBJECT) end 
-		elseif b == "Disable" then
-			return function(self) disableconnection(self.__OBJECT) end
-		elseif b == "Fire" then
-			return function(self, ...) fireonesignal(self.__OBJECT, ...) end 
-		end
-		return nil
-	end,
-	__newindex = function(a, b, c)
+  __index = function(a, b)
+	if b == "Fire" then
+		return function(self, ...) fireonesignal(self.__OBJECT, ...) end
+	elseif b == "Enable" then
+		return function(self) enableconnection(self.__OBJECT) end 
+	elseif b == "Disable" then
+		return function(self) disableconnection(self.__OBJECT) end 
+	end
+	return nil
+  end,
+  __newindex = function(a, b, c)
 		if b == "Enabled" then
 			if c and not rawget(a, "_ENABLED") then
 				enableconnection(self.__OBJECT) 
