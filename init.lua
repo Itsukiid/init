@@ -68,10 +68,6 @@ local MT = {
 		return function(self) enableconnection(self.__OBJECT) end 
 	elseif b == "Disable" then
 		return function(self) disableconnection(self.__OBJECT) end
-        elseif b == "Function" then
-		return function(self) getconnectionfunction(rawget(self.__OBJECT)) end
-	elseif b == "State" then
-		return function(self) getconnectionstate(rawget(self.__OBJECT)) end
 	end
 	return nil
   end,
