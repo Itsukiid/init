@@ -861,11 +861,6 @@ getgenv().getscriptcaller = getcallingscript
 getgenv().getcaller = getcallingscript
 getgenv().get_all_threads = getallthreads
 
-getgenv().debug = {}
-getgenv().debug.getregistry = getreg
-getgenv().debug.getfenv = getfenv
-getgenv().debug.setfenv = setfenv
-getgenv().debug.setmetatable = setmetatable
 
 getgenv().get_gc_objects = getgc
 getgenv().get_namecall_method = getnamecallmethod
