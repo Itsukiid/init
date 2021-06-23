@@ -11,7 +11,7 @@ mt.__namecall = function(self, ...)
         if self == game then
             local method = getnamecallmethod()
             if method == "HttpGet" or method == "HttpGetAsync" then
-                return print(self)
+                return HttpGet(...)
             elseif method == "GetObjects" then 
                 return GetObjects(self, ...)
             elseif method == "OpenVideosFolder" or method == "OpenScreenshotsFolder" then 
