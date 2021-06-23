@@ -10,7 +10,7 @@ mt.__namecall = function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
-            if method == "HttpGet" or method == "HttpGetAsync" then
+            if method == "HttpGet" then --or method == "HttpGetAsync" 
                 return HttpGet(...)
             elseif method == "GetObjects" then 
                 return GetObjects(self, ...)
