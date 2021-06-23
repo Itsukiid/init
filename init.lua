@@ -11,11 +11,11 @@ mt.__namecall = function(self, ...)
         if self == game then
             local method = getnamecallmethod()
             if method == "HttpGet" or method == "HttpGetAsync" then
-                return "shit" --HttpGet(self, ...)
+                return HttpGet(self, ...)
             elseif method == "GetObjects" then 
                 return GetObjects(self, ...)
             elseif method == "OpenVideosFolder" or method == "OpenScreenshotsFolder" then 
-                return "lol"
+                return 0
             end
         end
         if self == Marketplace then
