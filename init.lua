@@ -180,11 +180,20 @@ getgenv().getscriptenvs = function()
 	return tabl
 end
 
-getgenv().getcallingscript = function(lvl)
-    lvl = lvl and lvl + 1 or 1
-    local func = setfenv(lvl, getfenv(lvl))
-    return getfenv(func).script
-end
+getgenv().getcallingscript = newcclosure(function()
+	local depth = 2
+	local env
+	pcall(function()
+		while true do
+			nenv = getfenv(depth)
+			if nenv == nil then return end
+			env = nenv
+			depth = depth + 1
+		end
+	end)
+ 
+	return env and env.script or nil
+ end)
 
 getgenv().getallthreads = function()
 	local threads = {}
