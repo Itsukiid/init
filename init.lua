@@ -295,21 +295,22 @@ bit.ror = function(x, disp) --this is wrong fix this lol idk
 end
 
 bit.tohex = function(x, n)
-    n = n or 8
-    local up
-    if n <= 0 then
-        if n == 0 then
-            return ""
-        end
-        up = true
-        n = -n
-    end
-    x = bit.band(x, 16 ^ n - 1)
-    return ("%0" .. n .. (up and "X" or "x")):format(x)
+   n = n or 8
+   local up
+   if n <= 0 then
+       if n == 0 then return '' end
+       up = true
+       n = - n
+   end
+   x = x % (2^32)
+   x = bit32.band(x, 16^n-1)
+   return ('%0'..n..(up and 'X' or 'x')):format(x)
 end
 
 bit.tobit = function(x)
-    return x % 2 ^ 32
+   x = x % (2^32)
+   if x >= 0x80000000 then x = x - (2^32) end
+   return x
 end
 
 syn.protect_gui = function(a)
