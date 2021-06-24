@@ -87,6 +87,10 @@ getgenv().gethui = function()
   return game:GetService'CoreGui'
 end
 
+getgenv().getexecutorname = function()
+	return "Lead"
+end
+
 getgenv().fireproximityprompt = function(Obj, Amount, Skip)
   if Obj.ClassName == "ProximityPrompt" then
       Amount = Amount or 1
@@ -868,6 +872,7 @@ getgenv().hookfunc = hookfunction
 getgenv().replaceclosure = hookfunction
 
 getgenv().securecall = secure_call
+getgenv().identifyexecutor = getexecutorname
 
 local t = {}
  
