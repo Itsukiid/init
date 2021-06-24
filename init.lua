@@ -195,6 +195,20 @@ getgenv().getcallingscript = newcclosure(function()
 	return env and env.script or nil
  end)
 
+getgenv().getfunctions = function()
+	local tabl = {}
+	for i,v in next,getreg() do
+		if typeof(v) == "table" then
+			for a,b in next,v do
+				if type(b) == "function" then
+					table.insert(tabl, b)
+				end
+			end
+		end
+	end
+	return tabl
+end
+
 getgenv().getallthreads = function()
 	local threads = {}
 	for i, v in next, getreg() do
@@ -253,6 +267,13 @@ getgenv().iswriteable = newcclosure(function(tab)
 	return not isreadonly(tab)
 end)
 
+getgenv().info = function(arg)
+	return game:GetService("TestService"):Message(tostring(arg))
+end
+
+getgenv().setcallingscript = function(a) rawset(getfenv(0), "script", a) end
+getgenv().getpropvalue = function(o,p) return o[p] end
+getgenv().setpropvalue = function(o,p,v) o[p] = v end
 
 --bit lib
 
