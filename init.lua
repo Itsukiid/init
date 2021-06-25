@@ -3,7 +3,6 @@ local back = mt.__namecall
 local idx = mt.__index
 local GetService = game.GetService
 setreadonly(mt, false)
-
 local Marketplace = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
@@ -1192,7 +1191,7 @@ getgenv().set_thread_context = syn.set_thread_identity
 getgenv().set_thread_identity = syn.set_thread_identity
 getgenv().hookfunc = hookfunction
 getgenv().replaceclosure = hookfunction
-
+getgenv().Game = game
 getgenv().securecall = secure_call
 getgenv().identifyexecutor = getexecutorname
 
