@@ -19,7 +19,7 @@ mt.__index = newcclosure(function(t, k)
     return idx(t, k)
 end)
 
-mt.__namecall = function(self, ...)
+mt.__namecall = newcclosure(function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
@@ -51,7 +51,7 @@ mt.__namecall = function(self, ...)
         end
     end
     return back(self, ...)
-end
+end)
 
 setreadonly(mt, true)
 
