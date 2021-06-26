@@ -1,13 +1,12 @@
 local mt = getrawmetatable(game)
 local back = mt.__namecall
-local idx = mt.__index
 setreadonly(mt, false)
 local Marketplace = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
 
 
-mt.__namecall = newcclosure(function(self, ...)
+mt.__namecall = function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
@@ -39,7 +38,7 @@ mt.__namecall = newcclosure(function(self, ...)
         end
     end
     return back(self, ...)
-end)
+end
 
 setreadonly(mt, true)
 
