@@ -7,7 +7,20 @@ local Marketplace = game:GetService("MarketplaceService")
 local BrowserService = game:GetService("BrowserService")
 local GuiService = game:GetService("GuiService")
 
-mt.__namecall = newcclosure(function(self, ...)
+
+mt.__index = newcclosure(function(t, k)
+    if checkcaller() and t == game then
+        if k == "HttpGet" or k == "HttpGetAsync" then 
+            return HttpGet
+        elseif k == "GetObjects" then 
+            return GetObjects
+        end
+        return GetService(t, k) or idx(t, k)
+    end
+    return idx(t, k)
+end)
+
+mt.__namecall = function(self, ...)
     if checkcaller() then
         if self == game then
             local method = getnamecallmethod()
@@ -39,7 +52,7 @@ mt.__namecall = newcclosure(function(self, ...)
         end
     end
     return back(self, ...)
-end)
+end
 
 setreadonly(mt, true)
 
